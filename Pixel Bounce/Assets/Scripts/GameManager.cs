@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -6,35 +7,46 @@ public class GameManager : MonoBehaviour
     private int score = 0;
     private int highScore = 0;
 
-    public int Score 
+    private const string highScoreKey = "HighScore";
+
+    public int Score
     {
         get { return score; }
-        set { 
-            score = value; 
-            UpdateUI(); // call UpdateUI method to update the score text
+        set
+        {
+            score = value;
+            UpdateUI();
         }
     }
 
-    public int HighScore 
+    public int HighScore
     {
         get { return highScore; }
-        set { 
-            highScore = value; 
-            UpdateUI(); // call UpdateUI method to update the high score text
+        set
+        {
+            highScore = value;
+            PlayerPrefs.SetInt(highScoreKey, highScore);
+            UpdateUI();
         }
+    }
+
+    void Start()
+    {
+        // Load the high score from PlayerPrefs
+        highScore = PlayerPrefs.GetInt(highScoreKey, 0);
+        UpdateUI();
     }
 
     void UpdateUI()
     {
-        // Find the text objects and update their text values
         GameObject currentScoreTextObj = GameObject.Find("CurrentScoreText");
         GameObject highScoreTextObj = GameObject.Find("HighScoreText");
-        
+
         if (currentScoreTextObj != null && highScoreTextObj != null)
         {
             Text currentScoreText = currentScoreTextObj.GetComponent<Text>();
             Text highScoreText = highScoreTextObj.GetComponent<Text>();
-            currentScoreText.text = "Score: " + Score.ToString();
+            currentScoreText.text = Score.ToString();
             highScoreText.text = "High Score: " + HighScore.ToString();
         }
     }
