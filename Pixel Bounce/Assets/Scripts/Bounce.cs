@@ -10,7 +10,7 @@ public class Bounce : GameManager, IPointerDownHandler
     public GameObject gameOverCanvas;
     private GameManager gameManager;
 
-    public Button retryButton;
+    private Retry retryScript;
 
 
     void Start()
@@ -29,7 +29,6 @@ public class Bounce : GameManager, IPointerDownHandler
         if (collision.gameObject.CompareTag("bottomFloor"))
         {
             gameOverCanvas.SetActive(true);
-            retryButton.onClick.AddListener(OnClickRetry);
             Time.timeScale = 0f;
         }
         else if (collision.gameObject.CompareTag("Foot"))
@@ -37,10 +36,5 @@ public class Bounce : GameManager, IPointerDownHandler
             rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
             gameManager.Score += 1;
         }
-    }
-
-    void OnClickRetry()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

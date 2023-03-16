@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     {
         // Load the high score from PlayerPrefs
         highScore = PlayerPrefs.GetInt(highScoreKey, 0);
+        HighScore = highScore;
         UpdateUI();
     }
 
