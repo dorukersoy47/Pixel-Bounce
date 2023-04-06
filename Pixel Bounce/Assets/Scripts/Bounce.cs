@@ -10,8 +10,6 @@ public class Bounce : GameManager, IPointerDownHandler
     public GameObject gameOverCanvas;
     private GameManager gameManager;
 
-    private Retry retryScript;
-
 
     void Start()
     {
