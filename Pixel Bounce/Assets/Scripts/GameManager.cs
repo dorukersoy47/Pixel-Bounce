@@ -1,33 +1,38 @@
+using JetBrains.Annotations;
+using System.Diagnostics.Contracts;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    private int score = 0;
-    public int Score
-    {
-        get { return score; }
-        set
-        {
-            score = value;
-            UpdateUI();
-        }
-    }
+    public Text scoreText;
+    public int score;
+    public Text highScoreText;
+    public int highScore;
 
     void Start()
     {
-        UpdateUI();
-    }
-
-    void UpdateUI()
-    {
-        GameObject currentScoreTextObj = GameObject.Find("CurrentScoreText");
-
-        if (currentScoreTextObj != null)
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
+        if (highScoreText != null)
         {
-            Text currentScoreText = currentScoreTextObj.GetComponent<Text>();
-            currentScoreText.text = Score.ToString();
+            highScoreText.text = highScore.ToString();
         }
     }
+
+    public void IncrementScore()
+    {
+        score++;
+        scoreText.text = score.ToString();
+
+        if (score > highScore)
+        {
+            highScore = score;
+            highScoreText.text = highScore.ToString();
+            PlayerPrefs.SetInt("HighScore", highScore);
+        }
+    }
+
+    
 }

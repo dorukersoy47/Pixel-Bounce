@@ -32,7 +32,7 @@ public class Bounce : GameManager, IPointerDownHandler
         else if (collision.gameObject.CompareTag("Foot"))
         {
             rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
-            gameManager.Score += 1;
+            gameManager.IncrementScore();
         }
     }
 }
