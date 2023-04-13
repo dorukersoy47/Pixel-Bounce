@@ -15,6 +15,10 @@ public class Bounce : GameManager, IPointerDownHandler
     {
         rb = GetComponent<Rigidbody2D>();
         gameManager = GameObject.FindObjectOfType<GameManager>();
+
+        if (gameObject.CompareTag("Ball")) {
+            rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        }
     }
 
     public void OnPointerDown(PointerEventData eventData)
