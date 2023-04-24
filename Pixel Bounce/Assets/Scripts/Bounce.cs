@@ -35,7 +35,9 @@ public class Bounce : GameManager, IPointerDownHandler
         }
         else if (collision.gameObject.CompareTag("Foot"))
         {
-            rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+            Vector2 offset = new Vector2(Random.Range(-1f, 1f), 0f); // create a random horizontal offset
+            Vector2 forceVector = Vector2.up * force + offset; // combine the vertical and horizontal forces
+            rb.AddForce(forceVector, ForceMode2D.Impulse); // apply the force to the ball
             gameManager.IncrementScore();
         }
     }
